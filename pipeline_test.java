@@ -43,7 +43,7 @@ public class pipeline_test extends OpenCvPipeline {
         //input = input.submat(new Rect(0));
 
         //Defining Zones
-        //Rect(top left x, top left y, bottom right x, bottom right y)
+        //Rect(top left x, top left y, width, height)
         zone1 = input.submat(new Rect(0, 161, 190, 169));
         zone2 = input.submat(new Rect(441, 175, 144, 144));
         zone3 = input.submat(new Rect(784, 161, 13, 141));
