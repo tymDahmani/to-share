@@ -22,7 +22,7 @@ public class blobDetectOpmode extends LinearOpMode {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webCam = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
 
-        blobDetectionTest detector = new blobDetectionTest();
+        blobDetectionTest detector = new blobDetectionTest(telemetry);
         webCam.setPipeline(detector);
 
         webCam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
