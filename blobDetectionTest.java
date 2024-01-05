@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.openCV__autoDetect;
 
+import android.sax.StartElementListener;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
@@ -10,6 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class blobDetectionTest extends OpenCvPipeline {
+
+    public Telemetry telemetry;
 
     List<Integer> TP_COLOR = Arrays.asList(255, 0, 0); //(red, green, blue)
 
@@ -32,6 +37,10 @@ public class blobDetectionTest extends OpenCvPipeline {
     double distance3 = 0;
 
     double max_distance = 0;
+
+    public blobDetectionTest(Telemetry telemetry) {
+        this.telemetry = telemetry;
+    }
 
 
     @Override
@@ -65,7 +74,7 @@ public class blobDetectionTest extends OpenCvPipeline {
         max_distance = Math.min(distance3, Math.min(distance1, distance2));
 
         if (max_distance == distance1){
-            //telemetry.addData("Zone 1 Has Element", distance1);
+
             tp_zone = 1;
 
         }else if (max_distance == distance2){
