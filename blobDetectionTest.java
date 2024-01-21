@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.openCV__autoDetect;
+package org.firstinspires.ftc.teamcode.eocvDetect;
 
 import android.sax.StartElementListener;
 
@@ -18,8 +18,8 @@ public class blobDetectionTest extends OpenCvPipeline {
 
     List<Integer> TP_COLOR = Arrays.asList(255, 0, 0); //(red, green, blue)
 
-    public static int tp_zone = 1;
 
+    public static int tp_zone = 2;
     int toggleShow = 1;
 
     Mat original;
@@ -36,7 +36,7 @@ public class blobDetectionTest extends OpenCvPipeline {
     double distance2 = 1;
     double distance3 = 0;
 
-    double max_distance = 0;
+    static double max_distance = 0;
 
     public blobDetectionTest(Telemetry telemetry) {
         this.telemetry = telemetry;
@@ -53,9 +53,9 @@ public class blobDetectionTest extends OpenCvPipeline {
 
         //Defining Zones
         //Rect(top left x, top left y, width, height)
-        zone1 = input.submat(new Rect(0, 161, 190, 169));
-        zone2 = input.submat(new Rect(441, 175, 144, 144));
-        zone3 = input.submat(new Rect(784, 161, 13, 141));
+        zone1 = input.submat(new Rect(270, 220, 220, 170));
+        zone2 = input.submat(new Rect(670, 220, 220, 170));
+        zone3 = input.submat(new Rect(1070, 220, 220, 170));
 
         //Averaging the colors in the zones
         avgColor1 = Core.mean(zone1);
@@ -74,14 +74,17 @@ public class blobDetectionTest extends OpenCvPipeline {
         max_distance = Math.min(distance3, Math.min(distance1, distance2));
 
         if (max_distance == distance1){
-
+            telemetry.addLine("left");
+            telemetry.update();
             tp_zone = 1;
 
         }else if (max_distance == distance2){
-            //telemetry.addData("Zone 2 Has Element", distance2);
+            telemetry.addLine("mid");
+            telemetry.update();
             tp_zone = 2;
-        }else{
-            //telemetry.addData("Zone 2 Has Element", distance3);
+        } else {
+            telemetry.addLine("right");
+            telemetry.update();
             tp_zone = 3;
         }
 
@@ -91,14 +94,19 @@ public class blobDetectionTest extends OpenCvPipeline {
         }else{
             return original;
         }
-        
-        
+
+
     }
 
     public double color_distance(Scalar color1, List color2){
         double r1 = color1.val[0];
         double g1 = color1.val[1];
         double b1 = color1.val[2];
+
+        telemetry.addData("red value", r1);
+        telemetry.addData("green value", g1);
+        telemetry.addData("blue value", b1);
+        telemetry.update();
 
         int r2 = (int) color2.get(0);
         int g2 = (int) color2.get(1);
@@ -115,11 +123,7 @@ public class blobDetectionTest extends OpenCvPipeline {
         }
     }
 
-    public int get_tp_zone(){
-        return tp_zone;
-    }
-
-    public double getMaxDistance(){
+    public static double getMaxDistance(){
         return max_distance;
     }
 
@@ -130,5 +134,4 @@ public class blobDetectionTest extends OpenCvPipeline {
     public static int getTp_zone() {
         return tp_zone;
     }
-
 }
